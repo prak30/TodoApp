@@ -14,11 +14,13 @@
         resp.json().then(requiredRes)
     }
     function onPress(){
+        let title = document.getElementById("title").value;
+        let description = document.getElementById("description").value;
         fetch("http://localhost:3001/todos", {
             method : "POST",
             body: JSON.stringify({
-                title: "gym",
-                description : "in the evening"
+                title: title,
+                description : description
             }),
             headers:{
                 "Content-Type" : "application/json"
