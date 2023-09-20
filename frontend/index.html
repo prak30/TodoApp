@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TodoApp</title>
+</head>
+<script>
+    function requiredRes(data){
+        console.log(data);
+    }
+    function callback(resp){
+        resp.json().then(requiredRes)
+    }
+    function onPress(){
+        fetch("http://localhost:3001/todos", {
+            method : "GET"
+        }).then(callback)
+    }
+    
+</script>
+<body>
+    Todo Title
+    <input type="text" id="title"></input>
+    <br><br>
+    Todo Description
+    <input type="text" id="title"></input>
+    <button onclick="onPress()">
+        send todo
+    </button>
+
+
+    
+</body>
+</html>
