@@ -10,7 +10,28 @@
     function todosToDis(data){
         console.log(data)
         const parentDiv = document.getElementById("mainArea");
-        parentDiv.innerHTML = JSON.stringify(data);
+        // parentDiv.innerHTML = JSON.stringify(data);
+
+        for(var i =0; i<data.length; i++){
+        var childElement = document.createElement('div');
+        
+        var grandchild1 = document.createElement("span");
+        grandchild1.innerHTML = data[i].title
+
+
+        var grandchild2 = document.createElement("span");
+        grandchild2.innerHTML = data[i].description
+
+        var grandchild3 = document.createElement("button");
+        grandchild3.innerHTML = "DELETE"
+
+        childElement.appendChild(grandchild1)
+        childElement.appendChild(grandchild2)
+        childElement.appendChild(grandchild3)
+
+        parentDiv.appendChild(childElement);
+    }
+
 
     }
     function callback1(resp){
@@ -55,6 +76,7 @@
     <button onclick="onPress()">
         send todo
     </button>
+    <br><br>
     <div id="mainArea">
 
     </div>
