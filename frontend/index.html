@@ -7,6 +7,23 @@
     <title>TodoApp</title>
 </head>
 <script>
+    function todosToDis(data){
+        console.log(data)
+        const parentDiv = document.getElementById("mainArea");
+        parentDiv.innerHTML = JSON.stringify(data);
+
+    }
+    function callback1(resp){
+        resp.json().then(todosToDis)
+    }
+    function displayTodos(){
+        fetch("http://localhost:3001/todos", {
+            method : "GET"
+        }).then(callback1)
+    }
+
+    displayTodos();
+
     function requiredRes(data){
         console.log(data);
     }
@@ -38,6 +55,9 @@
     <button onclick="onPress()">
         send todo
     </button>
+    <div id="mainArea">
+
+    </div>
 
 
     
