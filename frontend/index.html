@@ -47,7 +47,29 @@
 
     function requiredRes(data){
         console.log(data);
+        const parentDiv = document.getElementById("mainArea");
+        // parentDiv.innerHTML = JSON.stringify(data);
+
+        var childElement = document.createElement('div');
+        
+        var grandchild1 = document.createElement("span");
+        grandchild1.innerHTML = data.title
+
+
+        var grandchild2 = document.createElement("span");
+        grandchild2.innerHTML = data.description
+
+        var grandchild3 = document.createElement("button");
+        grandchild3.innerHTML = "DELETE"
+
+        childElement.appendChild(grandchild1)
+        childElement.appendChild(grandchild2)
+        childElement.appendChild(grandchild3)
+
+        parentDiv.appendChild(childElement);
     }
+
+    
     function callback(resp){
         resp.json().then(requiredRes)
     }
