@@ -7,10 +7,24 @@
     <title>TodoApp</title>
 </head>
 <script>
+
+
+    function deleteDone(){
+        console.log("done delete")
+    }
+    
+    function deleteTodo(id){
+        console.log(id);
+        fetch("http://localhost:3001/todos/" + id, {
+            method : "DELETE",
+            headers:{
+                "Content-Type" : "application/json"
+            }
+        }).then(deleteDone)
+    }
     function todosToDis(data){
         console.log(data)
         const parentDiv = document.getElementById("mainArea");
-        // parentDiv.innerHTML = JSON.stringify(data);
 
         for(var i =0; i<data.length; i++){
         var childElement = document.createElement('div');
@@ -24,6 +38,8 @@
 
         var grandchild3 = document.createElement("button");
         grandchild3.innerHTML = "DELETE"
+        grandchild3.setAttribute("onclick", "deleteTodo(`" + data[i]._id + "`)")
+
 
         childElement.appendChild(grandchild1)
         childElement.appendChild(grandchild2)
@@ -44,6 +60,8 @@
     }
 
     displayTodos();
+
+    
 
     function requiredRes(data){
         console.log(data);
