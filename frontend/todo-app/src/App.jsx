@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-key */
 import { useEffect, useState } from 'react'
 
-
-function App() {
+//custom hook - hook which encapsulates another hook and returns a state variable
+function useTodos(){
   const [todos, setTodos] = useState([]);
   useEffect(() => {
     fetch("http://localhost:3001/todos").then((response) => {
@@ -13,7 +13,13 @@ function App() {
     })
     
   }, [])
+  return todos
+}
 
+
+function App() {
+  
+const todos = useTodos();
   
 
   return (
