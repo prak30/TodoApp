@@ -7,19 +7,19 @@ function App() {
     description:"wherever you want",
     id:1
   });
-
+  console.log("render")
   useEffect(() => {
     console.log("from useEffect hook")
+    setInterval(() => {
+      setTodo({
+        title:"goo home" + Math.random(),
+        description:"wherever you want to",
+        id:1
+      })
+    }, 2000)
   }, [])
 
-  console.log("render")
-  setInterval(() => {
-    setTodo({
-      title:"goo home" + Math.random(),
-      description:"wherever you want to",
-      id:1
-    })
-  }, 2000)
+  
 
   return (
     <div>
