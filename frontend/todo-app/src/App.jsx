@@ -2,21 +2,19 @@ import { useEffect, useState } from 'react'
 
 
 function App() {
-  const [todo, setTodo] = useState({
+  const [todo] = useState({
     title:"goo",
     description:"wherever you want",
     id:1
   });
   console.log("render")
   useEffect(() => {
-    console.log("from useEffect hook")
-    setInterval(() => {
-      setTodo({
-        title:"goo home" + Math.random(),
-        description:"wherever you want to",
-        id:1
+    fetch("http://localhost:3001/todos").then((response) => {
+      response.json().then((data) => {
+        console.log(data)
       })
-    }, 2000)
+    })
+    
   }, [])
 
   
