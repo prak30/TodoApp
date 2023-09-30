@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 
 function App() {
@@ -8,9 +8,14 @@ function App() {
     id:1
   });
 
+  useEffect(() => {
+    console.log("from useEffect hook")
+  }, [])
+
+  console.log("render")
   setInterval(() => {
     setTodo({
-      title:"goo home",
+      title:"goo home" + Math.random(),
       description:"wherever you want to",
       id:1
     })
