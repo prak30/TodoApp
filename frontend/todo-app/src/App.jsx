@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import './App.css'
 
 
 function App() {
@@ -24,9 +23,17 @@ function App() {
       {todo.description}
       <br></br>
       {todo.id}
+      <br></br>
+      <Name firstName={"pranav"} lastName={"katkar"}></Name>
     </div>
 
   )
+}
+
+function Name(props) {
+  return <div>
+    {props.firstName} {props.lastName}
+  </div>
 }
 
 export default App
