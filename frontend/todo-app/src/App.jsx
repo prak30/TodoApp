@@ -1,5 +1,8 @@
 /* eslint-disable react/jsx-key */
 import { useEffect, useState } from 'react'
+import Button from '@mui/material/Button';
+
+
 
 //custom hook - hook which encapsulates another hook and returns a state variable
 function useTodos(){
@@ -37,7 +40,8 @@ const todos = useTodos();
         return <div>
           {todo.title}
           {todo.description}
-          <button>DELETE</button>
+          <br></br>
+          <Button variant="contained">Delete</Button>
         </div>
       })}
     </div>
