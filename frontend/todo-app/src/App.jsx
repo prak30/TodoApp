@@ -11,6 +11,15 @@ function useTodos(){
         setTodos(data);
       })
     })
+
+    setInterval(() => {
+      fetch("http://localhost:3001/todos").then((response) => {
+      response.json().then((data) => {
+        console.log(data)
+        setTodos(data);
+      })
+    })
+    }, 1000);
     
   }, [])
   return todos
