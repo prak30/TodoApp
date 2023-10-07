@@ -9,19 +9,17 @@ import axios from 'axios';
 function useTodos(){
   const [todos, setTodos] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:3001/todos").then((response) => {
-      response.json().then((data) => {
-        console.log(data)
-        setTodos(data);
-      })
+    axios.get("http://localhost:3001/todos").then((response) => {
+      let data = response.data;
+      console.log(data);
+      setTodos(data);
     })
 
     setInterval(() => {
-      fetch("http://localhost:3001/todos").then((response) => {
-      response.json().then((data) => {
-        console.log(data)
-        setTodos(data);
-      })
+      axios.get("http://localhost:3001/todos").then((response) => {
+      let data = response.data;
+      console.log(data);
+      setTodos(data);
     })
     }, 1000);
     
