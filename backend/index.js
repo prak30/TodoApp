@@ -1,5 +1,7 @@
 const express = require('express');
 const cors = require('cors');
+const bcrypt = require('bcrypt');
+
 
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -13,13 +15,92 @@ const todoSchema = new mongoose.Schema({
     title : String,
     description : String
 })
+
+const userSchema = new mongoose.Schema({
+  email: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+})
 //Define mongoose model
 const Todo = mongoose.model('Todo', todoSchema);
+const User = mongoose.model('User', userSchema);
+
 //connect to mongodb
 mongoose.connect('mongodb+srv://pranavv:katkar@cluster0.oqehcar.mongodb.net/', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+
+app.post('/signup', async (req,res) => {
+  const { email, password } = req.body;
+  try {
+    // Create a new user document
+    const newUser = new User({email, password});
+    console.log(newUser);
+    // Save the user to the database
+    const savedUser = await newUser.save();
+    console.log(savedUser)
+    res.status(201).json(savedUser);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+})
+app.post('/todos', async (req, res) => {
+  const {title, description} = req.body
+  try {
+    const newTodo = new Todo({ title, description });
+    console.log(newTodo);
+
+    const savedTodo = await newTodo.save();
+    console.log(savedTodo);
+
+    res.status(201).json(savedTodo);
+  } catch (error) {
+    console.error('Error creating todo:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Login route
+app.post('/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    console.log("req.body is", req.body)
+
+    // Find the user by email
+    const user = await User.findOne({ email });
+    console.log("user", user.email , user.password)
+
+    // Check if the user exists
+    if (!user) {
+      return res.status(401).json({ error: 'Invalid email or password' });
+    }
+
+    console.log("password", password);
+
+    // Compare the provided password with the stored password
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    console.log(isPasswordValid)
+
+    if (!isPasswordValid) {
+      return res.status(401).json({ error: 'Invalid email or password' });
+    }
+
+    res.status(200).json({ message: 'Login successful', user });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 
 app.get('/todos', async (req, res) => {
     try {
@@ -96,3 +177,9 @@ app.use((req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
+
+
+// { 
+//   "email" : "prnvk@gmail.com" ,
+//   "password" : "pkatas"
+// }
