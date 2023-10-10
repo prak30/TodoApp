@@ -75,7 +75,7 @@ app.post('/login', async (req, res) => {
     console.log("req.body is", req.body)
 
     // Find the user by email
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email,  });
     console.log("user", user.email , user.password)
 
     // Check if the user exists
